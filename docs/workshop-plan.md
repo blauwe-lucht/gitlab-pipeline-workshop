@@ -15,7 +15,7 @@
 lab/
   compose.yaml          GitLab CE + runner-init + GitLab Runner (Docker executor)
   register-runners.sh   Run by runner-init: creates and configures 2 runners
-  ci-image/Dockerfile   Custom CI image (if no ready-made image fits), built locally
+  ci-image/Dockerfile   Custom CI image `workshop-cpp:1`, built locally
   README.md             Start, login, teardown, troubleshooting
 exercises/
   app/                  C++ library + GoogleTest tests
@@ -37,7 +37,7 @@ solutions/              Per exercise a clean, simple and complete solution conta
   1. Wait for GitLab healthy.
   2. Create a root token with `create_runner` scope (`gitlab-rails runner`).
   3. Create 2 instance runners via `POST /api/v4/user/runners`.
-  4. Write `config.toml` with both runners (`concurrent = 2`).
+  4. Write `config.toml` with both runners (`concurrent = 2`, `limit = 1` each).
   5. Idempotent: skip when already configured.
 - CI image: built locally once; runner uses `pull_policy = if-not-present`.
 - Solutions are verified by running them in the lab (green pipeline).

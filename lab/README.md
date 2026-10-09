@@ -1,10 +1,18 @@
 # Lab: local GitLab + 2 runners
 
-GitLab CE and a GitLab Runner with two registered runners (Docker executor), started with Docker Compose. Runner registration is automatic.
+GitLab CE and a GitLab Runner with two registered runners (Docker executor, one job each), started with Docker Compose. Runner registration is automatic.
 
-## Start
+## Build the CI image (once)
 
 From this `lab` folder:
+
+```sh
+docker build -t workshop-cpp:1 ci-image
+```
+
+Ubuntu 24.04 with GCC 13, Clang 18 (clang-tidy, clang-format), CMake, Ninja, ccache and Conan 2. Use it in jobs with `image: workshop-cpp:1`.
+
+## Start
 
 ```sh
 docker compose up -d --wait --wait-timeout 900
