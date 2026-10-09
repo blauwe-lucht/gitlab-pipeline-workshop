@@ -27,3 +27,7 @@
 | 2026-10-09 | Planted bug: `'D'` maps to 50; one test fails. | Students experience a red pipeline and fix it. |
 | 2026-10-09 | `solutions/0N` has no README; sync check ignores `README.md`. | Each exercise has its own README; solutions are code only. |
 | 2026-10-09 | Stretch tasks may be open-ended and need not have a verified answer; core tasks and solutions are always verified in the lab. | Students learn from searching, even without finding a solution. |
+| 2026-10-09 | Exercise 2 core: download the `roman` artifact and run it in an Alpine container (`docker run ... alpine:3.24.2 /w/roman <numeral>`). | Concrete, personal result; static binary verified to run in Alpine. |
+| 2026-10-09 | No native Windows build (MinGW). | Keeps the CI image small and the exercises focused. |
+| 2026-10-09 | Clone with `http://root@localhost:8929/...`. | Verified working push from host; avoids username prompt mistakes. |
+| 2026-10-09 | Exercise 2: `build` saves `build/roman` + `build/roman_tests`; `unit-tests` publishes JUnit with `artifacts:when: always`. | Build once; report must survive failing tests (shown in MR). |

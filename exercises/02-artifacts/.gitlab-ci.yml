@@ -1,0 +1,29 @@
+default:
+  image: workshop-cpp:1
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - conan install . --output-folder=build --build=missing
+    - cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    - cmake --build build
+
+unit-tests:
+  stage: test
+  script:
+    - conan install . --output-folder=build --build=missing
+    - cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    - cmake --build build
+    - ./build/roman_tests
+
+smoke-run:
+  stage: test
+  script:
+    - conan install . --output-folder=build --build=missing
+    - cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release
+    - cmake --build build
+    - ./build/roman MCMXCIV
