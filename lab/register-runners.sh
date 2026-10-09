@@ -70,6 +70,7 @@ write_runner() {
   url = "$GITLAB_INTERNAL_URL"
   clone_url = "$GITLAB_INTERNAL_URL"
   token = "$2"
+  limit = 1
   executor = "docker"
   [runners.docker]
     image = "$DEFAULT_JOB_IMAGE"
