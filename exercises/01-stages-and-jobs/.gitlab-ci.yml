@@ -1,0 +1,8 @@
+default:
+  image: workshop-cpp:1
+
+hello:
+  script:
+    - g++ --version
+    - cmake --version
+    - conan --version

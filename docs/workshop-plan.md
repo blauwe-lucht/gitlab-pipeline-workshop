@@ -5,7 +5,7 @@
 - Half day (3h): basics, best practices, student show-and-tell + Q&A.
 - Students: Windows 11 + Rancher Desktop (dockerd/moby engine). Some already wrote pipelines on the company GitLab.
 - Each student runs GitLab locally via Docker Compose. No proxy.
-- Sample app: small C++ library, Conan 2 with CMake, GoogleTest (AAA-style tests).
+- Sample app: Roman numeral → decimal console app, Conan 2 with CMake, GoogleTest (AAA-style tests).
 - No slides; repo materials only.
 
 ## Deliverables
@@ -18,12 +18,12 @@ lab/
   ci-image/Dockerfile   Custom CI image `workshop-cpp:1`, built locally
   README.md             Start, login, teardown, troubleshooting
 exercises/
-  app/                  C++ library + GoogleTest tests
-  01-…08-…/             One .gitlab-ci.yml step per exercise (format: decided later)
+  01-…08-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
 docs/
   best-practices.md     One-page checklist
   pre-workshop.md       Checklist to send students in advance
-solutions/              Per exercise a clean, simple and complete solution containing all files needed
+solutions/              Per exercise the complete solution; solutions/0N = exercises/0N+1
+scripts/check-sync.sh   Verifies that sync
 ```
 
 ## Lab requirements
@@ -44,16 +44,16 @@ solutions/              Per exercise a clean, simple and complete solution conta
 
 ## Exercises
 
-To be detailed after the lab works.
+Student flow: create empty GitLab project, clone, copy exercise folder in, push, inspect pipeline. Each README has a core task (~10 min) and stretch tasks for advanced students.
 
-1. **Stages and jobs**: configure, build, test.
+1. **Stages and jobs**: build, test (unit tests + smoke run); fix a planted bug.
 2. **Artifacts**: pass build output between jobs; GoogleTest XML as JUnit report in MRs.
 3. **Cache**: fetched dependencies, `ccache` between pipelines (keep simple).
 4. **Rules**: branches vs merge requests vs tags.
 5. **`needs` / DAG**: `clang-format`, `clang-tidy` and sanitizer build in parallel with tests.
 6. **Variables and secrets**: masked and protected variables.
 7. **Reuse**: `include` and `extends` templates.
-8. **Environments**: manual release job on tags.
+8. **Environments**: manual release job on tags; publish to the generic package registry (stand-in for Nexus).
 
 ## Agenda
 

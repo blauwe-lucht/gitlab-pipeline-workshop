@@ -19,3 +19,11 @@
 | 2026-10-09 | CI image runs a full `apt-get upgrade` (not security-only). | Simpler Dockerfile; fixes base-image CVE-2026-84782 (OpenSSL). VS Code's warning on `FROM` stays: it checks the base image only. |
 | 2026-10-09 | Remove pipx's shared pip after installing Conan. | Only needed to install; its bundled libraries caused 4 HIGH findings. |
 | 2026-10-09 | Accept remaining 142 HIGH/CRITICAL findings in `linux-libc-dev`. | Kernel headers needed by `build-essential`; containers use the host kernel; no Ubuntu fix. |
+| 2026-10-09 | Students work locally in an IDE: create empty GitLab project, clone, copy exercise files, push. | Inexperienced students must learn to use an IDE too. |
+| 2026-10-09 | Each exercise folder is self-contained (app + starting `.gitlab-ci.yml`); `solutions/0N` = `exercises/0N+1`, kept in sync. | Copying the next folder is the catch-up path. |
+| 2026-10-09 | Sample: console app converting Roman numerals to decimal (not a library). | Students get something they can run. |
+| 2026-10-09 | GitLab generic package registry stands in for Nexus (exercise 8). | Built into CE Free; same publish-on-tag idea. |
+| 2026-10-09 | Exercise 1 uses stages `build` → `test` (no separate `configure` job); each job rebuilds. | Without artifacts a configure job is useless; the duplication motivates exercises 2, 3 and 7. |
+| 2026-10-09 | Planted bug: `'D'` maps to 50; one test fails. | Students experience a red pipeline and fix it. |
+| 2026-10-09 | `solutions/0N` has no README; sync check ignores `README.md`. | Each exercise has its own README; solutions are code only. |
+| 2026-10-09 | Stretch tasks may be open-ended and need not have a verified answer; core tasks and solutions are always verified in the lab. | Students learn from searching, even without finding a solution. |
