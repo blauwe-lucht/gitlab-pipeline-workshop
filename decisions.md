@@ -31,3 +31,4 @@
 | 2026-10-09 | No native Windows build (MinGW). | Keeps the CI image small and the exercises focused. |
 | 2026-10-09 | Clone with `http://root@localhost:8929/...`. | Verified working push from host; avoids username prompt mistakes. |
 | 2026-10-09 | Exercise 2: `build` saves `build/roman` + `build/roman_tests`; `unit-tests` publishes JUnit with `artifacts:when: always`. | Build once; report must survive failing tests (shown in MR). |
+| 2026-10-13 | Runner healthcheck: `gitlab-runner verify`, checking exit code and output. | Image has none; `verify` exits 0 when GitLab is unreachable, so output must be checked. `--wait` now also waits for valid runners. |

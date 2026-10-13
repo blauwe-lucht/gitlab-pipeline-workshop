@@ -18,7 +18,7 @@ Ubuntu 24.04 with GCC 13, Clang 18 (clang-tidy, clang-format), CMake, Ninja, cca
 docker compose up -d --wait --wait-timeout 900
 ```
 
-The first start takes about 3–5 minutes once the images are pulled. The command returns when GitLab is ready and both runners are registered.
+The first start takes about 3–5 minutes once the images are pulled. The command returns when GitLab is ready and both runners are registered and verified.
 
 ## Log in
 
