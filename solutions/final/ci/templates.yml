@@ -1,0 +1,25 @@
+.cpp:
+  image: workshop-cpp:1
+
+.conan-build:
+  extends: .cpp
+  variables:
+    BUILD_TYPE: Release
+    CMAKE_EXTRA_ARGS: ""
+    CONAN_HOME: $CI_PROJECT_DIR/.conan2
+  cache:
+    key:
+      files:
+        - conanfile.txt
+      prefix: $BUILD_TYPE
+    paths:
+      - .conan2/
+  before_script:
+    - conan profile detect --exist-ok
+    - conan install . --output-folder=build --build=missing --settings=build_type=$BUILD_TYPE
+    - cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE $CMAKE_EXTRA_ARGS
+
+.thorough:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

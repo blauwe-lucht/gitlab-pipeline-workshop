@@ -18,11 +18,12 @@ lab/
   ci-image/Dockerfile   Custom CI image `workshop-cpp:1`, built locally
   README.md             Start, login, teardown, troubleshooting
 exercises/
-  01-…08-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
+  01-…03-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
 docs/
   best-practices.md     One-page checklist
   pre-workshop.md       Checklist to send students in advance
 solutions/              Per exercise the complete solution; solutions/0N = exercises/0N+1
+  final/                Grand solution covering all topics, with walkthrough README
 scripts/check-sync.sh   Verifies that sync
 ```
 
@@ -46,6 +47,8 @@ scripts/check-sync.sh   Verifies that sync
 
 Student flow: create empty GitLab project, clone, copy exercise folder in, push, inspect pipeline. Each README has a core task (~10 min) and stretch tasks for advanced students.
 
+Exercises 1–3 exist; topics 4–8 are covered by `solutions/final` (walkthrough), not separate exercises.
+
 1. **Stages and jobs**: build, test (unit tests + smoke run); fix a planted bug.
 2. **Artifacts**: pass build output between jobs; GoogleTest XML as JUnit report in MRs.
 3. **Cache**: fetched dependencies, `ccache` between pipelines (keep simple).
@@ -62,7 +65,7 @@ Student flow: create empty GitLab project, clone, copy exercise folder in, push,
 | 0:00 | Intro, start lab |
 | 0:15 | Basics: exercises 1–4 |
 | 1:15 | Break |
-| 1:25 | Best practices: exercises 5–8, checklist |
+| 1:25 | Best practices: walkthrough of `solutions/final` (topics 4–8), checklist |
 | 2:15 | Student show-and-tell, Q&A |
 | 2:50 | Wrap-up |
 

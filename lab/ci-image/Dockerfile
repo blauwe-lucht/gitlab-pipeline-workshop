@@ -10,6 +10,7 @@ RUN apt-get update \
         clang-format \
         clang-tidy \
         cmake \
+        curl \
         git \
         ninja-build \
         pipx \

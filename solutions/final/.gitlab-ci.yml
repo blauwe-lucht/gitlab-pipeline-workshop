@@ -1,0 +1,87 @@
+include:
+  - local: ci/templates.yml
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+stages:
+  - check
+  - build
+  - test
+  - release
+
+format:
+  stage: check
+  extends: .cpp
+  script:
+    - clang-format --dry-run --Werror src/*.cpp src/*.hpp tests/*.cpp
+
+build:
+  stage: build
+  extends: .conan-build
+  script:
+    - cmake --build build
+  artifacts:
+    paths:
+      - build/roman
+      - build/roman_tests
+    expire_in: 1 week
+
+unit-tests:
+  stage: test
+  extends: .cpp
+  needs: [build]
+  script:
+    - ./build/roman_tests --gtest_output=xml:report.xml
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+
+smoke-run:
+  stage: test
+  extends: .cpp
+  needs: [build]
+  script:
+    - ./build/roman MCMXCIV
+
+tidy:
+  stage: test
+  extends: [.conan-build, .thorough]
+  needs: []
+  variables:
+    CMAKE_EXTRA_ARGS: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+  script:
+    - clang-tidy -p build src/*.cpp tests/*.cpp
+
+sanitizers:
+  stage: test
+  extends: [.conan-build, .thorough]
+  needs: []
+  variables:
+    BUILD_TYPE: Debug
+    CMAKE_EXTRA_ARGS: -DCMAKE_CXX_FLAGS=-fsanitize=address,undefined
+  script:
+    # The app links statically, which the sanitizers do not support; the tests cover the same code.
+    - cmake --build build --target roman_tests
+    - ./build/roman_tests
+
+release:
+  stage: release
+  extends: .cpp
+  needs: [build, unit-tests, smoke-run]
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: manual
+  environment:
+    name: production
+    url: $CI_PROJECT_URL/-/packages
+  script:
+    - 'test -n "$RELEASE_SECRET" || { echo "RELEASE_SECRET is empty: is this tag protected?"; exit 1; }'
+    - 'echo "Signing release with $RELEASE_SECRET"'
+    - 'curl --fail-with-body --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file build/roman "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/roman/$CI_COMMIT_TAG/roman"'

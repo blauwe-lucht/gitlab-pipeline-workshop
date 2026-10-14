@@ -74,6 +74,9 @@ write_runner() {
   token = "$2"
   limit = 1
   executor = "docker"
+  # GitLab gives jobs its browser URL (localhost) for the API, which in a job container is the
+  # container itself. The runner's environment setting cannot override that variable; this can.
+  pre_build_script = "export CI_API_V4_URL=$GITLAB_INTERNAL_URL/api/v4"
   [runners.docker]
     image = "$DEFAULT_JOB_IMAGE"
     network_mode = "$DOCKER_NETWORK"

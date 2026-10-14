@@ -34,3 +34,9 @@
 | 2026-10-13 | Runner healthcheck: `gitlab-runner verify`, checking exit code and output. | Image has none; `verify` exits 0 when GitLab is unreachable, so output must be checked. `--wait` now also waits for valid runners. |
 | 2026-10-13 | Job containers share one named cache volume (`gitlab-lab-runner-cache`); `disable_cache = true`. | Per-runner cache volumes made a cache saved by one runner invisible to the other, and piled up outside `down -v`. |
 | 2026-10-13 | Exercise 3: `CONAN_HOME` in the project dir, cache `.conan2/` (key `conan`), `conan profile detect --exist-ok`. Success is shown by log lines (`Downloaded` → `Cache`), not timing. | GoogleTest binaries come prebuilt; time savings are too small to see. |
+| 2026-10-14 | No separate exercises 4–8 for now; one grand solution in `solutions/final` covers all topics and is walked through in the second block. | Not enough time to build all exercises. |
+| 2026-10-14 | Secrets topic uses a masked, protected demo variable (`RELEASE_SECRET`), not a deploy token. | Good enough to show masking and protection. |
+| 2026-10-14 | Runner `pre_build_script` exports `CI_API_V4_URL=http://gitlab:8929/api/v4`. | Jobs got `localhost` (the browser URL); the runner's `environment` setting cannot override it (tested). |
+| 2026-10-14 | `curl` added to the CI image. | Release job uploads to the package registry; one image for all jobs. |
+| 2026-10-14 | Final solution adds `.clang-format` (Google, 100 cols) and `.clang-tidy`; tests use `constexpr std::string_view`. | Clean under both tools without suppressing checks; earlier exercise code has a natural format violation (include order). |
+| 2026-10-14 | Sanitizer job builds only `roman_tests`. | The app links statically, which ASan does not support. |
