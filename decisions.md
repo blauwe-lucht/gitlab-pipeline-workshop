@@ -40,3 +40,4 @@
 | 2026-10-14 | `curl` added to the CI image. | Release job uploads to the package registry; one image for all jobs. |
 | 2026-10-14 | Final solution adds `.clang-format` (Google, 100 cols) and `.clang-tidy`; tests use `constexpr std::string_view`. | Clean under both tools without suppressing checks; earlier exercise code has a natural format violation (include order). |
 | 2026-10-14 | Sanitizer job builds only `roman_tests`. | The app links statically, which ASan does not support. |
+| 2026-10-14 | Lab README moved to the top-level `README.md` and expanded into the workshop entry point. | Students see it first when opening the repo. |

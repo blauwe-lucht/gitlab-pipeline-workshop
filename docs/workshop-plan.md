@@ -12,11 +12,11 @@
 
 ```text
 .gitattributes          Force LF for scripts and files used in containers
+README.md               Entry point: overview, start lab, exercises, teardown, troubleshooting
 lab/
   compose.yaml          GitLab CE + runner-init + GitLab Runner (Docker executor)
   register-runners.sh   Run by runner-init: creates and configures 2 runners
   ci-image/Dockerfile   Custom CI image `workshop-cpp:1`, built locally
-  README.md             Start, login, teardown, troubleshooting
 exercises/
   01-…03-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
 docs/
