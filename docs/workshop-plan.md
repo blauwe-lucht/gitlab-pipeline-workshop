@@ -20,7 +20,8 @@ lab/
 exercises/
   01-…03-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
 docs/
-  best-practices.md     One-page checklist
+  teaching-notes.md     Instructor skeleton: concepts, terms, quirks, best practices
+  best-practices.md     One-page guide for students
   pre-workshop.md       Checklist to send students in advance
 solutions/              Per exercise the complete solution; solutions/0N = exercises/0N+1
   final/                Grand solution covering all topics, with walkthrough README
@@ -69,15 +70,9 @@ Exercises 1–3 exist; topics 4–8 are covered by `solutions/final` (walkthroug
 | 2:15 | Student show-and-tell, Q&A |
 | 2:50 | Wrap-up |
 
-## Best-practices checklist (topics)
+## Best practices
 
-- Pin image versions.
-- Fail fast: cheap checks first.
-- Cache dependencies; keep artifacts small with expiry.
-- Least privilege: protected variables, protected branches.
-- DRY with `include` / `extends`.
-- Keep pipelines short; use `needs` for parallelism.
-- Validate with CI Lint before pushing.
+See [best-practices.md](best-practices.md).
 
 ## Pre-workshop checklist (students)
 

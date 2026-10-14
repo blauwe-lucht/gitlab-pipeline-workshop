@@ -5,6 +5,7 @@ Half-day workshop materials: a local GitLab lab, C++ sample app, exercises and s
 - Plan: [docs/workshop-plan.md](docs/workshop-plan.md)
 - Decisions: [decisions.md](decisions.md)
 - To-do: [todo.md](todo.md)
+- Teaching notes: [docs/teaching-notes.md](docs/teaching-notes.md)
 
 ## Lab
 
