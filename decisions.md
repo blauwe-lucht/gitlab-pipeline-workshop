@@ -32,3 +32,5 @@
 | 2026-10-09 | Clone with `http://root@localhost:8929/...`. | Verified working push from host; avoids username prompt mistakes. |
 | 2026-10-09 | Exercise 2: `build` saves `build/roman` + `build/roman_tests`; `unit-tests` publishes JUnit with `artifacts:when: always`. | Build once; report must survive failing tests (shown in MR). |
 | 2026-10-13 | Runner healthcheck: `gitlab-runner verify`, checking exit code and output. | Image has none; `verify` exits 0 when GitLab is unreachable, so output must be checked. `--wait` now also waits for valid runners. |
+| 2026-10-13 | Job containers share one named cache volume (`gitlab-lab-runner-cache`); `disable_cache = true`. | Per-runner cache volumes made a cache saved by one runner invisible to the other, and piled up outside `down -v`. |
+| 2026-10-13 | Exercise 3: `CONAN_HOME` in the project dir, cache `.conan2/` (key `conan`), `conan profile detect --exist-ok`. Success is shown by log lines (`Downloaded` → `Cache`), not timing. | GoogleTest binaries come prebuilt; time savings are too small to see. |

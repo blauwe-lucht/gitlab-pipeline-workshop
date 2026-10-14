@@ -5,6 +5,8 @@ CONFIG=/etc/gitlab-runner/config.toml
 RUNNER_COUNT=2
 GITLAB_INTERNAL_URL=http://gitlab:8929
 DEFAULT_JOB_IMAGE=alpine:3.24.2
+# Shared by both runners, so a cache saved by one is found by the other.
+CACHE_VOLUME=gitlab-lab-runner-cache
 
 main() {
   if already_configured; then
@@ -76,7 +78,8 @@ write_runner() {
     image = "$DEFAULT_JOB_IMAGE"
     network_mode = "$DOCKER_NETWORK"
     pull_policy = ["if-not-present"]
-    volumes = ["/cache"]
+    volumes = ["$CACHE_VOLUME:/cache"]
+    disable_cache = true
 EOF
 }
 

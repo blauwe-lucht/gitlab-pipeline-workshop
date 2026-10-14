@@ -50,6 +50,9 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - runner-config:/etc/gitlab-runner
+      # Jobs run in sibling containers that mount this volume (see register-runners.sh).
+      # Mounted here only so Compose creates it and `down -v` removes it.
+      - runner-cache:/cache
     healthcheck:
       # verify exits 0 even when GitLab is unreachable, so its output is checked too.
       test: ["CMD-SHELL", "out=$$(gitlab-runner verify 2>&1) && echo \"$$out\" | grep -q 'is valid' && ! echo \"$$out\" | grep -qE 'not valid|failed'"]
@@ -68,3 +71,5 @@ volumes:
   gitlab-logs:
   gitlab-data:
   runner-config:
+  runner-cache:
+    name: gitlab-lab-runner-cache
