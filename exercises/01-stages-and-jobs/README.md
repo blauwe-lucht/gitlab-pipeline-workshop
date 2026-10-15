@@ -7,10 +7,10 @@
 ## Set up your project (once)
 
 1. Open <http://localhost:8929> and log in as `root`.
-2. Select **Create new** (+) → **New project/repository** → **Create blank project**.
-   Name it `roman` and **uncheck** "Initialize repository with a README". Select **Create project**.
+2. Fill in dummy account details. When asked to create a group and project,
+   fill in 'roman' in both.
 3. Clone it: `git clone http://root@localhost:8929/root/roman.git`.
-   When asked, enter password `Workshop-Pipelines-2026`.
+   When asked, enter password `Workshop-Pipelines-Lab`.
 4. Copy all files from this folder into your clone, including the hidden `.gitlab-ci.yml` and `.gitignore`.
 5. Commit and push from VS Code.
 6. In GitLab, open **Build → Pipelines**. Open the `hello` job: it prints the tool versions of the CI image.

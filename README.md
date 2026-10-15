@@ -28,7 +28,7 @@ Then log in:
 
 - URL: <http://localhost:8929>
 - User: `root`
-- Password: `Workshop-Pipelines-2026` (override with the `GITLAB_ROOT_PASSWORD` environment variable before the first start)
+- Password: `Workshop-Pipelines-Lab` (override with the `GITLAB_ROOT_PASSWORD` environment variable before the first start)
 
 **Admin → CI/CD → Runners** shows `workshop-runner-1` and `workshop-runner-2` as online.
 

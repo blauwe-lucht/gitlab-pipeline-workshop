@@ -8,7 +8,7 @@ services:
     ports:
       - "8929:8929"
     environment:
-      GITLAB_ROOT_PASSWORD: ${GITLAB_ROOT_PASSWORD:-Workshop-Pipelines-2026}
+      GITLAB_ROOT_PASSWORD: ${GITLAB_ROOT_PASSWORD:-Workshop-Pipelines-Lab}
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://localhost:8929'
         puma['worker_processes'] = 0
