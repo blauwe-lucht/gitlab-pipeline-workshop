@@ -35,7 +35,7 @@
   whoever triggered the pipeline. By default it only works for its own project.
 - Manual job: waits until someone starts it.
 
-## Quirks (we hit all of these)
+## Quirks
 
 - **`:` in a script line** makes YAML read it as a key: GitLab creates no jobs. Quote the whole line.
 - **Jobs start from scratch:** no files from earlier jobs unless they are artifacts (or cache).
