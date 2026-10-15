@@ -41,3 +41,7 @@
 | 2026-10-14 | Final solution adds `.clang-format` (Google, 100 cols) and `.clang-tidy`; tests use `constexpr std::string_view`. | Clean under both tools without suppressing checks; earlier exercise code has a natural format violation (include order). |
 | 2026-10-14 | Sanitizer job builds only `roman_tests`. | The app links statically, which ASan does not support. |
 | 2026-10-14 | Lab README moved to the top-level `README.md` and expanded into the workshop entry point. | Students see it first when opening the repo. |
+| 2026-10-14 | `solutions/final` keeps its logic in `ci/*.sh`; YAML calls them as `bash ci/<script>.sh`. | Scripts can be run and tested locally; `bash` avoids relying on the executable bit, which Git on Windows usually does not record. |
+| 2026-10-14 | `solutions/final` has its own `.gitattributes` (`*.sh text eol=lf`). | CRLF from a Windows editor would break scripts in Linux jobs. |
+| 2026-10-14 | Final cache key: `conanfile.txt` with the job name as prefix. | Scripts take the build type as argument; per-job caches keep the YAML simple. |
+| 2026-10-15 | `best-practices.md` lists only practices to follow; GitLab/YAML quirks live in the Quirks section of `teaching-notes.md`. | Quirks are not practices; avoids duplicating them. |

@@ -8,12 +8,24 @@ The complete pipeline for `roman`, showing every workshop topic. Copy all files 
 | ----- | ----- | --------------- |
 | Stages and jobs | `.gitlab-ci.yml` | `check` → `build` → `test` → `release` |
 | Artifacts | `build`, `unit-tests` | Build once, reuse in later jobs; `expire_in`; JUnit report |
-| Cache | `.conan-build` in `ci/templates.yml` | Key from `conanfile.txt`, separate per build type |
+| Cache | `.conan-build` in `ci/templates.yml` | Key from `conanfile.txt`, separate per job |
 | Rules | `workflow:rules`, `.thorough` | Pipelines for merge requests, branches and tags, no duplicates; heavy checks only in merge requests and on `main` |
 | `needs` | `unit-tests`, `smoke-run`, `tidy`, `sanitizers` | Tests start as soon as `build` is done; `tidy` and `sanitizers` start right away |
 | Variables and secrets | `release` | Masked, protected `RELEASE_SECRET`: shown as `[MASKED]`, empty on unprotected tags |
-| Reuse | `include`, `extends` | Templates in `ci/templates.yml` |
+| Reuse | `include`, `extends`, `ci/*.sh` | Templates in `ci/templates.yml`; build steps in scripts |
 | Environments | `release` | Manual job on tags; uploads `roman` to the package registry |
+
+## Logic in scripts
+
+`.gitlab-ci.yml` only decides when and where jobs run; the steps are in `ci/*.sh`.
+Run them locally in the CI image, from this folder:
+
+```sh
+docker run --rm -v "${PWD}:/w" -w /w workshop-cpp:1 bash ci/build.sh
+```
+
+The other scripts: `check-format.sh`, `check-tidy.sh`, `test-sanitizers.sh` and `release.sh`
+(the last one only works in a tag pipeline).
 
 ## One-time project setup (for the release)
 

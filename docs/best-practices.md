@@ -16,7 +16,7 @@ What we practised in the workshop, grouped by goal. Examples refer to [`solution
 - **Build once,** pass the result on as artifacts instead of rebuilding in every job (`build`).
 - **Use `needs`** so jobs start as soon as their inputs are ready (`unit-tests`, `tidy`, `sanitizers`).
 - **Cache dependencies** with a key based on what determines their content
-  (`key:files: [conanfile.txt]`, plus the build type as prefix).
+  (`key:files: [conanfile.txt]`).
 - **Download only what a job needs:** `needs` or `dependencies` instead of all earlier artifacts.
 - **Split jobs where it pays off:** separate jobs for different failure reasons, parallel work or different rules;
   keep steps that always run together in one job. Every job costs a container start, a clone and a cache restore.
@@ -43,9 +43,7 @@ What we practised in the workshop, grouped by goal. Examples refer to [`solution
 
 - **Keep logic in scripts, not in YAML:** put build, test and release steps in script files in the repo and let
   `.gitlab-ci.yml` only decide when and where they run. You can then run the same scripts locally, in the CI
-  image, and test pipeline changes without a push for every attempt.
+  image, and test pipeline changes without a push for every attempt (`ci/*.sh`).
 - **DRY:** shared setup in hidden jobs (`.conan-build`), reused with `extends`, kept in `include` files.
-- **Remember that `extends` replaces arrays:** a job's own `script` or `rules` replaces the template's.
-- **Quote script lines that contain a colon followed by a space,** or YAML reads them as keys.
 - **Validate before pushing:** the pipeline editor or the CI Lint API.
 - **Clean up:** give artifacts an `expire_in`, so old build output does not pile up on the server.

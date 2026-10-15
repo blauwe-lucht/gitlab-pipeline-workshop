@@ -19,13 +19,13 @@ format:
   stage: check
   extends: .cpp
   script:
-    - clang-format --dry-run --Werror src/*.cpp src/*.hpp tests/*.cpp
+    - bash ci/check-format.sh
 
 build:
   stage: build
   extends: .conan-build
   script:
-    - cmake --build build
+    - bash ci/build.sh
   artifacts:
     paths:
       - build/roman
@@ -54,22 +54,15 @@ tidy:
   stage: test
   extends: [.conan-build, .thorough]
   needs: []
-  variables:
-    CMAKE_EXTRA_ARGS: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
   script:
-    - clang-tidy -p build src/*.cpp tests/*.cpp
+    - bash ci/check-tidy.sh
 
 sanitizers:
   stage: test
   extends: [.conan-build, .thorough]
   needs: []
-  variables:
-    BUILD_TYPE: Debug
-    CMAKE_EXTRA_ARGS: -DCMAKE_CXX_FLAGS=-fsanitize=address,undefined
   script:
-    # The app links statically, which the sanitizers do not support; the tests cover the same code.
-    - cmake --build build --target roman_tests
-    - ./build/roman_tests
+    - bash ci/test-sanitizers.sh
 
 release:
   stage: release
@@ -82,6 +75,4 @@ release:
     name: production
     url: $CI_PROJECT_URL/-/packages
   script:
-    - 'test -n "$RELEASE_SECRET" || { echo "RELEASE_SECRET is empty: is this tag protected?"; exit 1; }'
-    - 'echo "Signing release with $RELEASE_SECRET"'
-    - 'curl --fail-with-body --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file build/roman "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages/generic/roman/$CI_COMMIT_TAG/roman"'
+    - bash ci/release.sh
