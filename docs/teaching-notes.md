@@ -8,7 +8,7 @@
 
 | Concept | One-liner | Exercise |
 | ------- | --------- | -------- |
-| Pipeline | Everything that runs for one push, merge request or tag | 1 |
+| Pipeline | Used for both the definition (`.gitlab-ci.yml`, edited in the pipeline editor) and one run of it, started by a push, MR, tag, schedule… The context tells which | 1 |
 | Stage | Group of jobs; stages run in order, jobs within a stage in parallel | 1 |
 | Job | Commands that run in a fresh container | 1 |
 | Runner / executor | Program that picks up jobs; the Docker executor starts a container per job | 1 |
