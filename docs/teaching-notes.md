@@ -8,6 +8,8 @@
 
 | Concept | One-liner | Exercise |
 | ------- | --------- | -------- |
+| GitLab | DevOps platform: Git hosting, merge requests, issues, registries and CI/CD in one product | 1 |
+| GitLab CI/CD | The CI/CD system in GitLab: on each event reads `.gitlab-ci.yml`, creates the pipeline and its jobs, hands them to runners and stores logs, artifacts and reports. Runs no jobs itself; the cache stays with the runners | 1 |
 | Pipeline | Used for both the definition (`.gitlab-ci.yml`, edited in the pipeline editor) and one run of it, started by a push, MR, tag, schedule… The context tells which | 1 |
 | Stage | Group of jobs; stages run in order, jobs within a stage in parallel | 1 |
 | Job | Commands that run in a fresh container | 1 |
