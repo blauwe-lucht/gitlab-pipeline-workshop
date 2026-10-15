@@ -21,6 +21,7 @@
 | `needs` / DAG | Start a job when its inputs are ready, not when its stage starts | final |
 | `rules` / `workflow` | Decide whether a job or pipeline runs at all | final |
 | Variables | Predefined (`CI_*`), project, masked, protected | final |
+| Hidden job | Job whose name starts with `.`; never runs, only reused with `extends` (`.conan-build`) | final |
 | `include` / `extends` | Reuse configuration across files and jobs | final |
 | Environment | Where a job deploys to; history of deployments | final |
 
