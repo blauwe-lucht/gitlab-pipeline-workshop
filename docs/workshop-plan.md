@@ -18,7 +18,7 @@ lab/
   register-runners.sh   Run by runner-init: creates and configures 2 runners
   ci-image/Dockerfile   Custom CI image `workshop-cpp:1`, built locally
 exercises/
-  01-…03-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
+  01-…04-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
 docs/
   teaching-notes.md     Instructor skeleton: concepts, terms, quirks, best practices
   best-practices.md     One-page guide for students
@@ -48,7 +48,7 @@ scripts/check-sync.sh   Verifies that sync
 
 Student flow: create empty GitLab project, clone, copy exercise folder in, push, inspect pipeline. Each README has a core task (~10 min) and stretch tasks for advanced students.
 
-Exercises 1–3 exist; topics 4–8 are covered by `solutions/final` (walkthrough), not separate exercises.
+Exercises 1–4 exist; topics 5–8 are covered by `solutions/final` (walkthrough), not separate exercises.
 
 1. **Stages and jobs**: build, test (unit tests + smoke run); fix a planted bug.
 2. **Artifacts**: pass build output between jobs; GoogleTest XML as JUnit report in MRs.

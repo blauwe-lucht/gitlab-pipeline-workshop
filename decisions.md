@@ -45,3 +45,4 @@
 | 2026-10-14 | `solutions/final` has its own `.gitattributes` (`*.sh text eol=lf`). | CRLF from a Windows editor would break scripts in Linux jobs. |
 | 2026-10-14 | Final cache key: `conanfile.txt` with the job name as prefix. | Scripts take the build type as argument; per-job caches keep the YAML simple. |
 | 2026-10-15 | `best-practices.md` lists only practices to follow; GitLab/YAML quirks live in the Quirks section of `teaching-notes.md`. | Quirks are not practices; avoids duplicating them. |
+| 2026-10-22 | Exercise 4 (rules): `workflow:rules` from the GitLab "switch between branch and merge request pipelines" example, built up in two steps; a tag-only `package` job (`tar` of `roman`). | The intermediate step shows duplicate pipelines; the docs example has no tag rule, so students hit "no tag pipeline" and fix it. |

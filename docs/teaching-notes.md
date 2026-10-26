@@ -19,7 +19,7 @@
 | Report | Artifact GitLab understands, e.g. JUnit test results | 2 |
 | Cache | Speed-up between pipelines; may be missing, never relied on for correctness | 3 |
 | `needs` / DAG | Start a job when its inputs are ready, not when its stage starts | final |
-| `rules` / `workflow` | Decide whether a job or pipeline runs at all | final |
+| `rules` / `workflow` | Decide whether a job or pipeline runs at all | 4 |
 | Variables | Predefined (`CI_*`), project, masked, protected | final |
 | Hidden job | Job whose name starts with `.`; never runs, only reused with `extends` (`.conan-build`) | final |
 | `include` / `extends` | Reuse configuration across files and jobs | final |

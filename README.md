@@ -42,6 +42,7 @@ Stuck or late? Each exercise folder is a complete starting point: copy it over y
 | 1 | [Stages and jobs](exercises/01-stages-and-jobs/README.md) | Jobs, stages, reading a red pipeline |
 | 2 | [Artifacts](exercises/02-artifacts/README.md) | Build once, test reports, downloading the app |
 | 3 | [Cache](exercises/03-cache/README.md) | Reusing downloaded dependencies |
+| 4 | [Rules](exercises/04-rules/README.md) | Branch, merge request and tag pipelines; jobs for tags only |
 | – | [Final solution](solutions/final/README.md) | Rules, `needs`, secrets, reuse and releases, all together |
 
 Solutions are in [`solutions/`](solutions/).
