@@ -1,0 +1,11 @@
+.conan-build:
+  variables:
+    BUILD_TYPE: Release
+  cache:
+    key: conan
+    paths:
+      - .conan2/
+  before_script:
+    - conan profile detect --exist-ok
+    - conan install . --output-folder=build --build=missing --settings=build_type=$BUILD_TYPE
+    - cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=build/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE $EXTRA_CMAKE_ARGS

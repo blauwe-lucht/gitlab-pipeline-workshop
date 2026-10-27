@@ -23,7 +23,7 @@
 | 2026-10-09 | Each exercise folder is self-contained (app + starting `.gitlab-ci.yml`); `solutions/0N` = `exercises/0N+1`, kept in sync. | Copying the next folder is the catch-up path. |
 | 2026-10-09 | Sample: console app converting Roman numerals to decimal (not a library). | Students get something they can run. |
 | 2026-10-09 | GitLab generic package registry stands in for Nexus (exercise 8). | Built into CE Free; same publish-on-tag idea. |
-| 2026-10-09 | Exercise 1 uses stages `build` → `test` (no separate `configure` job); each job rebuilds. | Without artifacts a configure job is useless; the duplication motivates exercises 2, 3 and 7. |
+| 2026-10-09 | Exercise 1 uses stages `build` → `test` (no separate `configure` job); each job rebuilds. | Without artifacts a configure job is useless; the duplication motivates exercises 2, 3 and 5. |
 | 2026-10-09 | Planted bug: `'D'` maps to 50; one test fails. | Students experience a red pipeline and fix it. |
 | 2026-10-09 | `solutions/0N` has no README; sync check ignores `README.md`. | Each exercise has its own README; solutions are code only. |
 | 2026-10-09 | Stretch tasks may be open-ended and need not have a verified answer; core tasks and solutions are always verified in the lab. | Students learn from searching, even without finding a solution. |
@@ -46,3 +46,10 @@
 | 2026-10-14 | Final cache key: `conanfile.txt` with the job name as prefix. | Scripts take the build type as argument; per-job caches keep the YAML simple. |
 | 2026-10-15 | `best-practices.md` lists only practices to follow; GitLab/YAML quirks live in the Quirks section of `teaching-notes.md`. | Quirks are not practices; avoids duplicating them. |
 | 2026-10-22 | Exercise 4 (rules): `workflow:rules` from the GitLab "switch between branch and merge request pipelines" example, built up in two steps; a tag-only `package` job (`tar` of `roman`). | The intermediate step shows duplicate pipelines; the docs example has no tag rule, so students hit "no tag pipeline" and fix it. |
+| 2026-10-27 | Exercise 5 (reuse) before `needs`: YAML anchors → `include: local` + `extends` → CI/CD component, in one exercise; topics 6–8 stay in `solutions/final`. | Shows reuse at three levels; moving the anchor to another file breaks the pipeline, which motivates `extends`. |
+| 2026-10-27 | Exercise 5 motivates reuse with a `sanitizers` job sharing the Conan setup (`.conan-build`, `BUILD_TYPE`, `EXTRA_CMAKE_ARGS`) with `build`. | A real second job; same sanitizer build as `solutions/final`. |
+| 2026-10-27 | Students create the component project `components` themselves from the sources in `exercises/components` (`format-check`, tag `1.0.0`); writing a component of their own is a plus exercise. | They see what a component project needs (README, `templates/`, tag) without writing one in the core task. |
+| 2026-10-27 | Component sources live in `exercises/components`, outside the numbered exercise folders. | Keeps `solutions/04` = `exercises/05` and the catch-up copy free of a second project. |
+| 2026-10-27 | Solutions cover the core task only, not the plus exercises. | Plus exercises may be open-ended. |
+| 2026-10-27 | `format-check` uses the project's `.clang-format` (from `solutions/final`); exercise code then fails only on the include order in `main.cpp`. | One quick, visible fix: red → green. |
+| 2026-10-27 | `solutions/final` checks formatting with the `format-check` component (stage `check`) instead of its own script. | Matches exercise 5; the component shows a diff, not just a position. |

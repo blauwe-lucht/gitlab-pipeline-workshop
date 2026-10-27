@@ -12,7 +12,7 @@ The complete pipeline for `roman`, showing every workshop topic. Copy all files 
 | Rules | `workflow:rules`, `.thorough` | Pipelines for merge requests, branches and tags, no duplicates; heavy checks only in merge requests and on `main` |
 | `needs` | `unit-tests`, `smoke-run`, `tidy`, `sanitizers` | Tests start as soon as `build` is done; `tidy` and `sanitizers` start right away |
 | Variables and secrets | `release` | Masked, protected `RELEASE_SECRET`: shown as `[MASKED]`, empty on unprotected tags |
-| Reuse | `include`, `extends`, `ci/*.sh` | Templates in `ci/templates.yml`; build steps in scripts |
+| Reuse | `include` (local, component), `extends`, `ci/*.sh` | Templates in `ci/templates.yml`; build steps in scripts; `format-check` component from `roman/components` with inputs |
 | Environments | `release` | Manual job on tags; uploads `roman` to the package registry |
 
 ## Logic in scripts
@@ -24,13 +24,15 @@ Run them locally in the CI image, from this folder:
 docker run --rm -v "${PWD}:/w" -w /w workshop-cpp:1 bash ci/build.sh
 ```
 
-The other scripts: `check-format.sh`, `check-tidy.sh`, `test-sanitizers.sh` and `release.sh`
+The other scripts: `check-tidy.sh`, `test-sanitizers.sh` and `release.sh`
 (the last one only works in a tag pipeline).
 
-## One-time project setup (for the release)
+## One-time project setup
 
-1. **Settings → Repository → Protected tags:** protect `v*`.
-2. **Settings → CI/CD → Variables → Add variable:** key `RELEASE_SECRET`, any value of 8+ characters
+1. **Component project:** `roman/components` with tag `1.0.0`, as in [exercise 5](../../exercises/05-reuse/README.md), step 3.
+   Without it, GitLab cannot create the pipeline.
+2. **Settings → Repository → Protected tags:** protect `v*`.
+3. **Settings → CI/CD → Variables → Add variable:** key `RELEASE_SECRET`, any value of 8+ characters
    without spaces. Set **Visibility** to **Masked** and tick **Protect variable**.
 
 ## Try it

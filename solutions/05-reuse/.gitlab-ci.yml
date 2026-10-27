@@ -1,0 +1,70 @@
+include:
+  - local: ci/templates.yml
+  - component: $CI_SERVER_FQDN/roman/components/format-check@1.0.0
+    inputs:
+      stage: test
+      files: src/*.cpp src/*.hpp tests/*.cpp
+
+default:
+  image: workshop-cpp:1
+
+variables:
+  CONAN_HOME: $CI_PROJECT_DIR/.conan2
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_TAG
+
+stages:
+  - build
+  - test
+  - package
+
+build:
+  stage: build
+  extends: .conan-build
+  script:
+    - cmake --build build
+  artifacts:
+    paths:
+      - build/roman
+      - build/roman_tests
+
+unit-tests:
+  stage: test
+  script:
+    - ./build/roman_tests --gtest_output=xml:report.xml
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
+
+smoke-run:
+  stage: test
+  script:
+    - ./build/roman MCMXCIV
+
+sanitizers:
+  stage: test
+  extends: .conan-build
+  variables:
+    BUILD_TYPE: Debug
+    EXTRA_CMAKE_ARGS: -DCMAKE_CXX_FLAGS=-fsanitize=address,undefined
+  script:
+    # The app links statically, which the sanitizers do not support; the tests cover the same code.
+    - cmake --build build --target roman_tests
+    - ./build/roman_tests
+
+package:
+  stage: package
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - tar -czf roman-$CI_COMMIT_TAG.tar.gz -C build roman
+  artifacts:
+    paths:
+      - roman-$CI_COMMIT_TAG.tar.gz

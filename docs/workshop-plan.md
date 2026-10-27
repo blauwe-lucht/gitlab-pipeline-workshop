@@ -18,7 +18,8 @@ lab/
   register-runners.sh   Run by runner-init: creates and configures 2 runners
   ci-image/Dockerfile   Custom CI image `workshop-cpp:1`, built locally
 exercises/
-  01-…04-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
+  01-…05-…/             Self-contained start: app + .gitlab-ci.yml + README (core task, stretch tasks)
+  components/           Sources of the CI/CD component project students create in exercise 5
 docs/
   teaching-notes.md     Instructor skeleton: concepts, terms, quirks, best practices
   best-practices.md     One-page guide for students
@@ -48,15 +49,15 @@ scripts/check-sync.sh   Verifies that sync
 
 Student flow: create empty GitLab project, clone, copy exercise folder in, push, inspect pipeline. Each README has a core task (~10 min) and stretch tasks for advanced students.
 
-Exercises 1–4 exist; topics 5–8 are covered by `solutions/final` (walkthrough), not separate exercises.
+Exercises 1–5 exist; topics 6–8 are covered by `solutions/final` (walkthrough), not separate exercises.
 
 1. **Stages and jobs**: build, test (unit tests + smoke run); fix a planted bug.
 2. **Artifacts**: pass build output between jobs; GoogleTest XML as JUnit report in MRs.
 3. **Cache**: fetched dependencies, `ccache` between pipelines (keep simple).
 4. **Rules**: branches vs merge requests vs tags.
-5. **`needs` / DAG**: `clang-format`, `clang-tidy` and sanitizer build in parallel with tests.
-6. **Variables and secrets**: masked and protected variables.
-7. **Reuse**: `include` and `extends` templates.
+5. **Reuse**: YAML anchors, `include: local` + `extends`, a CI/CD component in its own project.
+6. **`needs` / DAG**: `clang-format`, `clang-tidy` and sanitizer build in parallel with tests.
+7. **Variables and secrets**: masked and protected variables.
 8. **Environments**: manual release job on tags; publish to the generic package registry (stand-in for Nexus).
 
 ## Agenda
@@ -64,7 +65,7 @@ Exercises 1–4 exist; topics 5–8 are covered by `solutions/final` (walkthroug
 | Time | Block |
 | ---- | ----- |
 | 0:00 | Intro, start lab |
-| 0:15 | Basics: exercises 1–4 |
+| 0:15 | Basics: exercises 1–5 |
 | 1:15 | Break |
 | 1:25 | Best practices: walkthrough of `solutions/final` (topics 4–8), checklist |
 | 2:15 | Student show-and-tell, Q&A |

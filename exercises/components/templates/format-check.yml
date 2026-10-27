@@ -1,0 +1,18 @@
+spec:
+  inputs:
+    stage:
+      description: Stage of the format-check job.
+    files:
+      description: Files to check, as shell globs.
+---
+format-check:
+  stage: $[[ inputs.stage ]]
+  image: workshop-cpp:1
+  script:
+    # A diff shows what to change; clang-format --dry-run only shows where.
+    - |
+      status=0
+      for file in $[[ inputs.files ]]; do
+        clang-format "$file" | diff -u --label "$file" --label "$file (formatted)" "$file" - || status=1
+      done
+      exit $status

@@ -21,8 +21,10 @@
 | `needs` / DAG | Start a job when its inputs are ready, not when its stage starts | final |
 | `rules` / `workflow` | Decide whether a job or pipeline runs at all | 4 |
 | Variables | Predefined (`CI_*`), project, masked, protected | final |
-| Hidden job | Job whose name starts with `.`; never runs, only reused with `extends` (`.conan-build`) | final |
-| `include` / `extends` | Reuse configuration across files and jobs | final |
+| YAML anchor | `&name` marks a block, `*name` or `<<: *name` reuses it; only within one file | 5 |
+| Hidden job | Job whose name starts with `.`; never runs, only reused with `extends` (`.conan-build`) | 5 |
+| `include` / `extends` | Reuse configuration across files and jobs | 5 |
+| CI/CD component | Versioned, reusable pipeline part in another project, with `spec: inputs`; `include: component` | 5 |
 | Environment | Where a job deploys to; history of deployments | final |
 
 ## Terms worth defining
@@ -47,6 +49,8 @@
 - **Protected variables are empty** on unprotected branches and tags, not `[MASKED]`.
 - **Masking hides values in logs only;** a job can still leak them (`base64`).
 - **`extends` merges hashes but replaces arrays:** a job's own `script` or `rules` replaces the template's.
+- **`<<:` merges only the top level:** a job's own `variables` replaces the anchor's `variables` entirely.
+- **Anchors do not work across `include`d files:** use `extends` or `!reference`.
 - **Branch + merge request = two pipelines** for one push, unless `workflow:rules` prevents it.
 - **Manual jobs on tags** leave the pipeline waiting until someone starts them.
 - **`localhost` inside a job container** is the container itself, not your laptop.
