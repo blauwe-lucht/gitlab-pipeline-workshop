@@ -28,16 +28,26 @@ Continue in your `roman` project. Stuck in exercise 3? Copy all files from this 
    ```
 
    Push again and check that only the merge request pipeline runs.
-4. **A pipeline for a tag.** Create tags, first on the `main` branch (0.1), then on the new branch (0.2)
-   (**Code->Tags**->select the branch, then **New tag**) and see what happens in **Build->Pipelines**. Why does 0.1 get a pipeline and 0.2 not?
 
-   Add a rule on the branch that also creates a pipeline on tags:
+   How does this work? Pipelines are created by several events: a new commit on a branch, a new commit in
+   a merge request, a tag is set, or a manual pipeline is created through the web UI. Each event will create
+   a separate pipeline. Which event caused the pipeline can be seen through the variable `$CI_PIPELINE_SOURCE`.
+   For each created pipeline the rules are evaluated from top to bottom and as soon as one `if` matches, it's `when`
+   value determines if the pipeline will actually run (`when: always`) or not (`when: never`).
+   By default each `if` rule has `when: always`.
+
+   To see this in action, experiment with changing the order of the rules.
+4. **A pipeline for a tag.** To create tags on commits, you go to **Code->Tags** and select the appropriate
+   branch. Create two tags, `0.1` on the `main` branch and `0.2` on the new branch.
+   See what happens in **Build->Pipelines**. Why does 0.1 get a pipeline and 0.2 not?
+
+   Add a rule to the workflow rules on the branch that also creates a pipeline on tags:
 
    ```yaml
        - if: $CI_COMMIT_TAG
    ```
 
-   Create another tag (0.3) on the branch and see what happens now in **Build->Pipelines**.
+   Create another tag `0.3` on the branch and see what happens now in **Build->Pipelines**.
 
 5. **Merge the MR.** And see what happens.
 
@@ -45,7 +55,7 @@ Continue in your `roman` project. Stuck in exercise 3? Copy all files from this 
    (`rules`), packs the app with `tar -czf roman-$CI_COMMIT_TAG.tar.gz -C build roman`, and keeps the file
    as an artifact. Push to `main`: no `package` job. Then create tag `0.4` on `main` in **Code → Tags**.
 
-Note: Merge requests on the Community Edition of Gitlab (which we are using) only build the commit on the branch,
+Note: merge requests on the Community Edition of Gitlab (which we are using) only build the commit on the branch,
 making it exactly the same as the pipeline for the branch commit. However the Enterprise version of Gitlab
 shows a more useful result: it runs the pipeline on the merged result of the source and target branch. In this
 case you want to have two pipelines: one to see if the branch is still working (the branch commit pipeline) and
