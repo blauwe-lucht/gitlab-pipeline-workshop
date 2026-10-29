@@ -6,9 +6,10 @@ Continue in your `roman` project. Stuck in exercise 3? Copy all files from this 
 
 ## Core task
 
-1. **Look before you change.** Create a branch, change a line in `README.md`, push, and open a merge request.
-   Open **Build → Pipelines**. Which kind of pipeline ran, and which one does the merge request show?
-2. **Merge request pipelines.** Add to `.gitlab-ci.yml`:
+1. **Look before you change.** Create a branch, change a line in `README.md`, push, and create a merge request.
+   Open **Build → Pipelines**. Which kind of pipeline ran (look at the blue label)?
+2. **Merge request pipelines.** The default rules don't create seperate pipelines for branch commits and
+   merge requests. To show that these are separate events add this to `.gitlab-ci.yml`:
 
    ```yaml
    workflow:
@@ -43,6 +44,12 @@ Continue in your `roman` project. Stuck in exercise 3? Copy all files from this 
 6. **A job for tags only.** On `main` add a `package` stage and job that runs only when `$CI_COMMIT_TAG` is set
    (`rules`), packs the app with `tar -czf roman-$CI_COMMIT_TAG.tar.gz -C build roman`, and keeps the file
    as an artifact. Push to `main`: no `package` job. Then create tag `0.4` on `main` in **Code → Tags**.
+
+Note: Merge requests on the Community Edition of Gitlab (which we are using) only build the commit on the branch,
+making it exactly the same as the pipeline for the branch commit. However the Enterprise version of Gitlab
+shows a more useful result: it runs the pipeline on the merged result of the source and target branch. In this
+case you want to have two pipelines: one to see if the branch is still working (the branch commit pipeline) and
+one to see if the merged result will still work (the merge request pipeline).
 
 Docs: [`workflow:rules`](https://docs.gitlab.com/ci/yaml/workflow/),
 [`rules`](https://docs.gitlab.com/ci/yaml/#rules),
